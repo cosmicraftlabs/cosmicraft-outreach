@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmicraft Labs — Outreach Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#070707;
+  --black2:#0f0f0f;
+  --black3:#161616;
+  --black4:#1e1e1e;
+  --black5:#252525;
+  --red:#e8000d;
+  --red2:#ff1a26;
+  --red3:#c0000a;
+  --red-dim:rgba(232,0,13,0.1);
+  --white:#f0f0f0;
+  --grey:#888;
+  --grey2:#555;
+  --grey3:#333;
+  --border:#2a2a2a;
+  --border2:#3c3c3c;
+  --D:'Bebas Neue',sans-serif;
+  --M:'IBM Plex Mono',monospace;
+  --B:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:var(--B);
+  min-height:100vh;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(232,0,13,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(232,0,13,0.035) 1px,transparent 1px);
+  background-size:52px 52px;
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);
+  pointer-events:none;z-index:9998;
+}
+::selection{background:var(--red);color:var(--white);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--red3);}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:100;
+  background:var(--black);
+  border-bottom:1px solid var(--red3);
+  display:flex;align-items:stretch;height:58px;
+}
+.logo-block{
+  padding:0 28px;
+  display:flex;align-items:center;gap:14px;
+  border-right:1px solid var(--red3);
+  flex-shrink:0;
+}
+.logo-diamond{
+  width:9px;height:9px;
+  background:var(--red);
+  transform:rotate(45deg);
+  animation:spin 8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(405deg);}}
+.logo-text{
+  font-family:var(--D);
+  font-size:1.6rem;
+  letter-spacing:0.1em;
+  line-height:1;
+}
+.logo-text em{color:var(--red);font-style:normal;}
+.header-mid{
+  flex:1;display:flex;align-items:center;padding:0 28px;
+  overflow:hidden;
+}
+.header-tag{
+  font-family:var(--M);
+  font-size:0.6rem;
+  letter-spacing:0.22em;
+  color:var(--grey);
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.header-tag b{color:var(--red);font-weight:500;}
+.header-right{
+  padding:0 24px;
+  display:flex;align-items:center;gap:10px;
+  border-left:1px solid var(--border);
+  flex-shrink:0;
+}
+.pulse-dot{
+  width:6px;height:6px;
+  background:var(--red);
+  animation:blink 1.1s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.live-label{
+  font-family:var(--M);
+  font-size:0.6rem;
+  letter-spacing:0.18em;
+  color:var(--red);
+  text-transform:uppercase;
+}
+
+/* MAIN */
+main{position:relative;z-index:10;max-width:1380px;margin:0 auto;padding:0 24px 80px;}
+
+/* HERO */
+.hero{
+  padding:60px 0 48px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;gap:32px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:36px;
+}
+@media(max-width:680px){.hero{grid-template-columns:1fr;}.hero-right{display:none;}}
+.hero-kicker{
+  font-family:var(--M);font-size:0.6rem;
+  letter-spacing:0.28em;color:var(--red);
+  text-transform:uppercase;margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-kicker::before{content:'';width:20px;height:1px;background:var(--red);}
+h1.display{
+  font-family:var(--D);
+  font-size:clamp(3.8rem,7.5vw,7.5rem);
+  line-height:0.9;letter-spacing:0.05em;
+  margin-bottom:20px;
+}
+h1.display .red{color:var(--red);}
+h1.display .outline{-webkit-text-stroke:1.5px var(--white);color:transparent;}
+.hero-sub{
+  font-size:0.88rem;color:var(--grey);
+  max-width:420px;line-height:1.8;font-weight:300;
+}
+.hero-right{text-align:right;}
+.hero-num{
+  font-family:var(--D);font-size:5rem;
+  color:var(--red3);line-height:1;
+  letter-spacing:0.06em;
+}
+.hero-num-label{
+  font-family:var(--M);font-size:0.58rem;
+  letter-spacing:0.2em;color:var(--grey2);
+  text-transform:uppercase;
+}
+
+/* TABS */
+.tab-row{
+  display:flex;margin-bottom:28px;
+  border:1px solid var(--border2);
+  width:fit-content;
+}
+.tab-btn{
+  font-family:var(--M);font-size:0.68rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  padding:11px 30px;
+  border:none;border-radius:0;cursor:crosshair;
+  background:var(--black2);color:var(--grey);
+  transition:all 0.12s;
+}
+.tab-btn+.tab-btn{border-left:1px solid var(--border2);}
+.tab-btn.active{background:var(--red);color:var(--white);}
+.tab-btn:not(.active):hover{background:var(--black4);color:var(--white);}
+
+/* GRID */
+.grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+@media(max-width:900px){.grid{grid-template-columns:1fr;}}
+
+/* CARDS */
+.card{background:var(--black2);}
+.card:nth-child(1){animation:up 0.4s ease both;}
+.card:nth-child(2){animation:up 0.4s 0.07s ease both;}
+@keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+.card-header{
+  padding:14px 22px;
+  border-bottom:1px solid var(--border);
+  background:var(--black3);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-title{
+  font-family:var(--M);font-size:0.62rem;
+  letter-spacing:0.24em;text-transform:uppercase;
+  color:var(--grey);
+  display:flex;align-items:center;gap:10px;
+}
+.card-title::before{content:'';width:5px;height:5px;background:var(--red);display:inline-block;}
+.card-badge{
+  font-family:var(--M);font-size:0.56rem;
+  letter-spacing:0.16em;text-transform:uppercase;
+  padding:3px 10px;
+  border:1px solid var(--border2);
+  color:var(--grey);
+}
+.card-badge.m{border-color:#7a0008;color:var(--red);}
+.card-badge.l{border-color:#0c4a6e;color:#38bdf8;}
+.card-body{padding:22px;}
+
+/* FORM */
+.fg{margin-bottom:18px;}
+label{
+  display:block;font-family:var(--M);
+  font-size:0.58rem;letter-spacing:0.24em;
+  text-transform:uppercase;color:var(--grey2);
+  margin-bottom:7px;
+}
+input,select,textarea{
+  width:100%;
+  background:var(--black);
+  border:1px solid var(--border2);
+  border-radius:0;
+  color:var(--white);
+  font-family:var(--B);font-size:0.88rem;
+  padding:10px 13px;
+  transition:border-color 0.12s,background 0.12s;
+  outline:none;resize:vertical;cursor:crosshair;
+}
+input::placeholder,textarea::placeholder{color:var(--grey2);}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--red);
+  background:#0c0000;
+  box-shadow:inset 0 0 0 1px #4a0004;
+}
+select{
+  appearance:none;cursor:crosshair;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;
+  padding-right:34px;
+}
+
+/* CHIPS */
+.chip-row{
+  display:flex;flex-wrap:wrap;
+  gap:0;margin-bottom:18px;
+  border:1px solid var(--border);width:fit-content;
+  max-width:100%;overflow:hidden;
+}
+.chip{
+  font-family:var(--M);font-size:0.58rem;
+  letter-spacing:0.16em;text-transform:uppercase;
+  padding:7px 15px;
+  cursor:crosshair;
+  background:var(--black3);color:var(--grey);
+  border:none;border-right:1px solid var(--border);
+  transition:all 0.1s;
+}
+.chip:last-child{border-right:none;}
+.chip:hover{background:var(--black5);color:var(--white);}
+.chip.active{background:var(--red);color:var(--white);}
+
+/* CHAR COUNT */
+.char-count{
+  font-family:var(--M);font-size:0.56rem;
+  letter-spacing:0.12em;color:var(--grey2);
+  text-align:right;margin-top:4px;
+}
+
+/* PREVIEW */
+.preview-content{
+  min-height:320px;
+  background:var(--black);
+  border:1px solid var(--border2);
+  padding:18px;
+  font-family:var(--M);font-size:0.8rem;
+  line-height:1.9;color:var(--grey);
+  white-space:pre-wrap;word-break:break-word;
+  position:relative;
+  transition:border-color 0.15s;
+}
+.preview-content.mail-mode{border-left:2px solid var(--red);}
+.preview-content.li-mode{border-left:2px solid #0ea5e9;}
+
+.ph{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+}
+.ph-line{width:100px;height:1px;background:var(--border2);}
+.ph-txt{
+  font-family:var(--M);font-size:0.58rem;
+  letter-spacing:0.24em;text-transform:uppercase;color:var(--grey2);
+}
+
+.tok{
+  background:rgba(232,0,13,0.14);
+  color:var(--red2);padding:0 3px;
+  font-family:var(--M);font-size:0.78em;
+}
+
+/* SUBJECT PREVIEW */
+.subj-wrap{margin-bottom:12px;display:none;}
+.subj-box{
+  background:var(--black);
+  border:1px solid var(--border2);
+  border-left:2px solid var(--red);
+  padding:9px 13px;
+  font-family:var(--M);font-size:0.76rem;
+  color:var(--grey);margin-top:7px;
+}
+
+/* ACTIONS */
+.actions{
+  display:flex;gap:1px;margin-top:16px;
+  background:var(--border);flex-wrap:wrap;
+}
+.btn{
+  font-family:var(--M);font-size:0.64rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  padding:12px 20px;border:none;border-radius:0;
+  cursor:crosshair;transition:all 0.1s;
+  display:flex;align-items:center;gap:7px;
+}
+.btn-ghost{background:var(--black3);color:var(--grey);}
+.btn-ghost:hover{background:var(--black5);color:var(--white);}
+.btn-primary{background:var(--red);color:var(--white);flex:1;justify-content:center;}
+.btn-primary:hover{background:var(--red2);}
+.btn-primary:active{background:var(--red3);}
+.btn-copy{background:var(--white);color:var(--black);font-weight:600;flex:1;justify-content:center;}
+.btn-copy:hover{background:#d8d8d8;}
+.btn-copy.done{background:var(--red);color:var(--white);}
+
+/* PDF SECTION */
+.pdf-section{
+  margin-top:1px;
+  background:var(--black2);
+  border:1px solid var(--border);border-top:none;
+  animation:up 0.4s 0.14s ease both;
+}
+.pdf-hdr{
+  padding:14px 22px;
+  border-bottom:1px solid var(--border);
+  background:var(--black3);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.section-title{
+  font-family:var(--M);font-size:0.62rem;
+  letter-spacing:0.24em;text-transform:uppercase;
+  color:var(--grey);
+  display:flex;align-items:center;gap:10px;
+}
+.section-title::before{content:'';width:5px;height:5px;background:var(--red);display:inline-block;}
+.doc-count{
+  font-family:var(--M);font-size:0.58rem;
+  letter-spacing:0.16em;color:var(--grey2);
+  text-transform:uppercase;
+}
+.pdf-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+}
+@media(max-width:700px){.pdf-grid{grid-template-columns:1fr;}}
+
+.pdf-card{
+  background:var(--black2);
+  padding:28px 22px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:background 0.12s;
+  position:relative;overflow:hidden;
+}
+.pdf-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:2px;background:var(--red);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.22s;
+}
+.pdf-card:hover::before{transform:scaleX(1);}
+.pdf-card:hover{background:var(--black3);}
+
+.pdf-num{
+  font-family:var(--D);font-size:3.5rem;
+  color:var(--border2);line-height:1;
+  letter-spacing:0.06em;
+  transition:color 0.2s;
+}
+.pdf-card:hover .pdf-num{color:var(--red3);}
+.pdf-name{
+  font-family:var(--D);font-size:1.5rem;
+  letter-spacing:0.08em;color:var(--white);line-height:1;
+}
+.pdf-desc{
+  font-size:0.78rem;color:var(--grey2);
+  line-height:1.65;font-weight:300;flex:1;
+}
+.pdf-btn{
+  font-family:var(--M);font-size:0.6rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  padding:10px 0;
+  border:1px solid var(--border2);border-radius:0;
+  background:transparent;color:var(--grey);
+  cursor:crosshair;transition:all 0.12s;text-align:center;
+  width:100%;
+}
+.pdf-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-dim);}
+.pdf-btn:active{background:var(--red);color:var(--white);}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:28px;left:50%;
+  transform:translateX(-50%) translateY(18px);
+  background:var(--red);color:var(--white);
+  font-family:var(--M);font-size:0.62rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  padding:11px 26px;z-index:10000;
+  opacity:0;transition:all 0.22s;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* FOOTER */
+.foot{
+  margin-top:36px;padding-top:18px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.foot-txt{
+  font-family:var(--M);font-size:0.56rem;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--grey2);
+}
+.foot-txt b{color:var(--red);font-weight:500;}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  header{height:auto;}
+  .header-mid,.header-right{display:none;}
+  .logo-block{border-right:none;padding:14px 20px;}
+  main{padding:0 16px 60px;}
+  .hero{padding:36px 0 30px;}
+  .actions{flex-direction:column;}
+  .btn-primary,.btn-copy{flex:none;width:100%;justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <div class="logo-diamond"></div>
+    <div class="logo-text">COSMI<em>CRAFT</em> LABS</div>
+  </div>
+  <div class="header-mid">
+    <span class="header-tag">OUTREACH STUDIO — <b>V2</b></span>
+  </div>
+  <div class="header-right">
+    <div class="pulse-dot"></div>
+    <div class="live-label">Live</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-kicker">Cosmicraft Labs Internal Tool</div>
+      <h1 class="display">
+        <span class="red">OUTREACH</span><br>
+        <span class="outline">COMMAND</span><br>
+        CENTER
+      </h1>
+      <p class="hero-sub">Pick a channel. Pick a template. Drop the names. Copy the message. That's the whole workflow.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-num">05</div>
+      <div class="hero-num-label">Templates Ready</div>
+    </div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" data-tab="mail" onclick="setMode('mail')">Email</button>
+    <button class="tab-btn" data-tab="linkedin" onclick="setMode('linkedin')">LinkedIn</button>
+  </div>
+
+  <div class="grid">
+
+    <!-- INPUT -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Input Details</div>
+        <div class="card-badge m" id="modeBadge">EMAIL</div>
+      </div>
+      <div class="card-body">
+        <div class="fg">
+          <label>Template</label>
+          <div class="chip-row" id="chipRow"></div>
+        </div>
+        <div class="fg">
+          <label>Recipient Name *</label>
+          <input type="text" id="recipientName" placeholder="e.g. Arjun, Sarah, Rohan" oninput="liveUpdate()">
+        </div>
+        <div class="fg">
+          <label>Company Name</label>
+          <input type="text" id="companyName" placeholder="e.g. Zomato, Notion, Stripe" oninput="liveUpdate()">
+        </div>
+        <div class="fg" id="yourNameField">
+          <label>Your Name</label>
+          <input type="text" id="yourName" placeholder="e.g. Yash" oninput="liveUpdate()">
+        </div>
+        <div class="fg" id="subjectField">
+          <label>Email Subject</label>
+          <input type="text" id="emailSubject" placeholder="e.g. Quick idea for [Company Name]" oninput="liveUpdate()">
+          <div class="char-count" id="subjectCount">0 / 60</div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-ghost" onclick="resetForm()">Reset</button>
+          <button class="btn btn-primary" onclick="generate()">Generate</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Message Preview</div>
+        <div class="card-badge m" id="prevBadge">EMAIL</div>
+      </div>
+      <div class="card-body">
+        <div class="subj-wrap" id="subjWrap">
+          <label>Subject Line</label>
+          <div class="subj-box" id="subjBox">—</div>
+        </div>
+        <div class="preview-content mail-mode" id="previewBox">
+          <div class="ph" id="ph">
+            <div class="ph-line"></div>
+            <div class="ph-txt">Fill form and generate</div>
+            <div class="ph-line"></div>
+          </div>
+        </div>
+        <div class="actions" id="copyRow" style="display:none;">
+          <button class="btn btn-ghost" onclick="copyMsg()">Copy</button>
+          <button class="btn btn-copy" id="copyMain" onclick="copyMsg()">Copy to Clipboard</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PDF -->
+  <div class="pdf-section">
+    <div class="pdf-hdr">
+      <div class="section-title">Company Resources</div>
+      <div class="doc-count">3 Documents</div>
+    </div>
+    <div class="pdf-grid">
+      <div class="pdf-card">
+        <div class="pdf-num">01</div>
+        <div class="pdf-name">COMPANY INFO</div>
+        <div class="pdf-desc">Overview of Cosmicraft Labs — who we are, what we build, and our full service scope.</div>
+        <button class="pdf-btn" onclick="dlPDF('info')">Download PDF</button>
+      </div>
+      <div class="pdf-card">
+        <div class="pdf-num">02</div>
+        <div class="pdf-name">INVOICE</div>
+        <div class="pdf-desc">Standard invoice template for projects, retainers, and service engagements.</div>
+        <button class="pdf-btn" onclick="dlPDF('invoice')">Download PDF</button>
+      </div>
+      <div class="pdf-card">
+        <div class="pdf-num">03</div>
+        <div class="pdf-name">PITCH DECK</div>
+        <div class="pdf-desc">Vision, services, case studies, and the Cosmicraft growth model — ready to send.</div>
+        <button class="pdf-btn" onclick="dlPDF('pitch')">Download PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="foot-txt">Cosmicraft Labs — <b>Outreach Studio</b></div>
+    <div class="foot-txt" id="charInfo"></div>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const T={
+  mail:[
+    {id:'m1',label:'Casual',subject:'Quick idea for [Company Name]',
+     body:`Hey [Name],\n\nI came across your company and really liked what you're building.\n\nI noticed there's strong potential to improve the digital experience and online growth side of the brand — especially through better automation, web presence, and marketing systems.\n\nAt Cosmicraft Labs, we help businesses handle everything from prototyping and development to branding, automation, and growth marketing under one roof.\n\nWould love to connect and explore if there's any way we could help your team scale faster.\n\n— Cosmicraft Labs`},
+    {id:'m2',label:'Formal',subject:'Exploring a collaboration with [Company Name]',
+     body:`Hi [Name],\n\nI hope you're doing well.\n\nI recently came across [Company Name] and genuinely liked the work your team is doing. I noticed there may be opportunities to strengthen your digital presence and streamline some of the tech and marketing workflows.\n\nAt Cosmicraft Labs, we work with businesses as a long-term growth and technology partner — helping with:\n- Website and app development\n- AI automation\n- UI/UX and prototyping\n- Branding and social media\n- Performance marketing\n\nInstead of hiring multiple vendors, companies work with us as a centralized execution team for both tech and growth.\n\nWould you be open to a short 15-minute conversation sometime this week?\n\nBest regards,\n[Your Name]\nCosmicraft Labs`},
+    {id:'m3',label:'Value-Led',subject:'Spotted a growth opportunity for [Company Name]',
+     body:`Hey [Name],\n\nI recently came across [Company Name] and spent some time exploring your brand.\n\nYou already have a strong foundation, but I noticed a few areas where smarter digital systems and stronger online positioning could significantly improve growth and customer experience.\n\nAt Cosmicraft Labs, we help businesses handle the entire digital execution layer — from websites and UI/UX to AI automation, SEO, CRM systems, branding, and marketing.\n\nInstead of acting like a traditional agency, we work more like a long-term growth and technology partner.\n\nI'd genuinely love to share a few ideas specifically for your business if you're open to a short conversation sometime this week.\n\nBest regards,\n[Your Name]\nCosmicraft Labs`}
+  ],
+  linkedin:[
+    {id:'l1',label:'Punchy',
+     body:`Hey [Name],\n\nCame across your company and honestly liked what you're building.\n\nI noticed there's a strong opportunity to improve the digital side further — especially around branding, automation, and overall user experience.\n\nAt Cosmicraft Labs, we work with startups and modern businesses as a long-term tech + growth partner, helping with everything from prototyping and development to AI automation and marketing systems.\n\nNot pitching anything aggressively here — just genuinely feel your brand has strong scaling potential.\n\nWould love to connect and exchange ideas sometime.\n\n— Cosmicraft Labs`},
+    {id:'l2',label:'Discovery',
+     body:`Hey [Name],\n\nI came across your company and really liked what you're building.\n\nI noticed there's strong potential to improve the digital experience and online growth side of the brand — especially through better automation, web presence, and marketing systems.\n\nAt Cosmicraft Labs, we help businesses handle everything from prototyping and development to branding, automation, and growth marketing under one roof.\n\nWould love to connect and explore if there's any way we could help your team scale faster.\n\n— Cosmicraft Labs`}
+  ]
+};
+
+const PDF={
+  info:{name:'Cosmicraft_Company_Info.txt',content:`COSMICRAFT LABS — COMPANY INFORMATION\n======================================\n\nWHO WE ARE\nCosmicraft Labs is a full-stack digital growth studio helping startups and modern businesses scale through technology and marketing.\n\nSERVICES\n- Website & App Development\n- AI Automation & Integration\n- UI/UX Design & Prototyping\n- Branding & Social Media\n- Performance Marketing\n- CRM & SEO Systems\n\nWHY US\nWe operate as a long-term growth and technology partner — not a traditional agency. One team, full-stack execution.\n\nCONTACT\nhello@cosmicraft.in\nwww.cosmicraft.in`},
+  invoice:{name:'Cosmicraft_Invoice_Template.txt',content:`COSMICRAFT LABS — INVOICE\n==========================\n\nInvoice #:     CL-______\nDate:          __________\nDue Date:      __________\n\nBILL TO\nName/Company:  __________\nAddress:       __________\nEmail:         __________\n\nSERVICES\n--------------------------------------------------\n1. _______________________     INR ____________\n2. _______________________     INR ____________\n3. _______________________     INR ____________\n--------------------------------------------------\nSubtotal:                      INR ____________\nGST (18%):                     INR ____________\n--------------------------------------------------\nTOTAL DUE:                     INR ____________\n\nBANK DETAILS\nAccount Holder: Cosmicraft Labs\nAccount Number: XXXXXXXXXXXX\nIFSC Code:      XXXXXXXXXX\n\nPayment due within 7 days of invoice date.`},
+  pitch:{name:'Cosmicraft_Pitch_Deck.txt',content:`COSMICRAFT LABS — PITCH DECK SUMMARY\n=====================================\n\nTHE PROBLEM\nBusinesses waste time and money juggling 5+ vendors for digital execution.\n\nTHE SOLUTION\nCosmicraft Labs. One team. Full-stack execution across tech + growth.\n\nSERVICES\n- Website & App Development\n- AI Automation\n- UI/UX & Prototyping\n- Branding & Social Media\n- Performance Marketing\n\nTHE MODEL\nWe work as a long-term embedded growth partner — not a project vendor.\n\nWHO WE SERVE\nStartups, D2C brands, SaaS companies, service businesses looking to scale.\n\nTHE ASK\nPartnership / Retainer / Project engagement\n\nLET'S TALK\nhello@cosmicraft.in`}
+};
+
+let mode='mail',tpl=null,finalMsg='';
+
+function init(){buildChips();pickTpl(T.mail[0]);}
+
+function buildChips(){
+  const r=document.getElementById('chipRow');
+  r.innerHTML='';
+  T[mode].forEach((t,i)=>{
+    const c=document.createElement('button');
+    c.className='chip'+(i===0?' active':'');
+    c.textContent=t.label;
+    c.onclick=()=>{
+      r.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+      c.classList.add('active');
+      pickTpl(t);
+    };
+    r.appendChild(c);
+  });
+}
+
+function pickTpl(t){
+  tpl=t;
+  if(mode==='mail'&&t.subject){
+    document.getElementById('emailSubject').value=t.subject;
+    updateSC();
+  }
+  generate();
+}
+
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===m));
+  const isM=m==='mail';
+  const badge=isM?'m':'l';
+  const txt=isM?'EMAIL':'LINKEDIN';
+  ['modeBadge','prevBadge'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.className='card-badge '+badge;
+    el.textContent=txt;
+  });
+  document.getElementById('subjectField').style.display=isM?'':'none';
+  document.getElementById('yourNameField').style.display=isM?'':'none';
+  document.getElementById('subjWrap').style.display=isM?'block':'none';
+  const pb=document.getElementById('previewBox');
+  pb.className='preview-content '+(isM?'mail-mode':'li-mode');
+  buildChips();
+  pickTpl(T[mode][0]);
+}
+
+function fill(s){
+  const n=document.getElementById('recipientName').value.trim();
+  const co=document.getElementById('companyName').value.trim();
+  const yn=document.getElementById('yourName').value.trim()||'Your Name';
+  return s.replace(/\[Name\]/g,n||'[Name]')
+          .replace(/\[Company Name\]/g,co||'[Company Name]')
+          .replace(/\[Your Name\]/g,yn);
+}
+
+function generate(){
+  if(!tpl)return;
+  const body=fill(tpl.body);
+  const subj=fill(tpl.subject||document.getElementById('emailSubject').value.trim()||'');
+  finalMsg=mode==='mail'?`Subject: ${subj}\n\n${body}`:body;
+
+  const pb=document.getElementById('previewBox');
+  document.getElementById('ph')&&(document.getElementById('ph').style.display='none');
+  const hi=body.replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\[(Name|Company Name|Your Name)\]/g,'<span class="tok">[$1]</span>');
+  pb.innerHTML=hi;
+
+  if(mode==='mail'){
+    document.getElementById('subjWrap').style.display='block';
+    const sh=subj.replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\[(Name|Company Name|Your Name)\]/g,'<span class="tok">[$1]</span>');
+    document.getElementById('subjBox').innerHTML=sh||'—';
+  }
+  document.getElementById('copyRow').style.display='flex';
+  document.getElementById('charInfo').textContent=finalMsg.length+' chars';
+}
+
+function liveUpdate(){
+  updateSC();
+  if(tpl)generate();
+}
+
+function updateSC(){
+  const el=document.getElementById('emailSubject');
+  const c=document.getElementById('subjectCount');
+  const l=el.value.length;
+  c.textContent=l+' / 60';
+  c.style.color=l>55?'var(--red)':'var(--grey2)';
+}
+
+document.getElementById('emailSubject').addEventListener('input',liveUpdate);
+
+async function copyMsg(){
+  if(!finalMsg){showToast('Generate a message first');return;}
+  try{
+    await navigator.clipboard.writeText(finalMsg);
+    const b=document.getElementById('copyMain');
+    b.classList.add('done');b.textContent='Copied';
+    setTimeout(()=>{b.classList.remove('done');b.textContent='Copy to Clipboard';},2200);
+    showToast('Copied to clipboard');
+  }catch{showToast('Copy failed — try again');}
+}
+
+function resetForm(){
+  ['recipientName','companyName','yourName','emailSubject'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('subjectCount').textContent='0 / 60';
+  document.getElementById('previewBox').innerHTML=`<div class="ph" id="ph"><div class="ph-line"></div><div class="ph-txt">Fill form and generate</div><div class="ph-line"></div></div>`;
+  document.getElementById('copyRow').style.display='none';
+  document.getElementById('subjBox').textContent='—';
+  document.getElementById('charInfo').textContent='';
+  finalMsg='';
+  showToast('Form reset');
+}
+
+function dlPDF(type){
+  const d=PDF[type];
+  const blob=new Blob([d.content],{type:'text/plain'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=d.name;
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(url);
+  showToast('Downloading '+d.name.replace('Cosmicraft_','').replace('_',' ').replace('.txt',''));
+}
+
+let tt;
+function showToast(m){
+  const t=document.getElementById('toast');
+  t.textContent=m.toUpperCase();
+  t.classList.add('show');
+  clearTimeout(tt);
+  tt=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+init();
+</script>
+</body>
+</html>
